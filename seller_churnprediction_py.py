@@ -140,6 +140,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from PIL import Image
 import shap
 from streamlit_shap import st_shap
+from io import BytesIO
 # Load your trained model
 #model = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=5,
                                    #min_samples_leaf=7, min_samples_split=2, random_state=42)
