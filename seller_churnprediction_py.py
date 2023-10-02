@@ -133,7 +133,7 @@ eval_metric(model, X_train, y_train, X_test, y_test)
 #!pip install streamlit
 #!pip install ipython
 #!pip install openpyxl
-pip install streamlit_shap
+!pip install streamlit_shap
 
 import streamlit as st
 import pandas as pd
