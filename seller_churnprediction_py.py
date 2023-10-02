@@ -156,9 +156,13 @@ st.markdown("<h1 style='text-align: right;'> Enter Features</h1>", unsafe_allow_
 col1, col2 = st.columns([1, 1])
 # Display the image in the left column
 with col1:
-    image = Image.open("Internship_DataScience/logo.jpg")
+    #image = Image.open("Internship_DataScience/logo.jpg")
     # Display the image using Streamlit
     #st.image(image, width=320)
+    #st.image(image, use_column_width=True)
+    image_url = "https://github.com/evliyaaa/Internship_DataScience/raw/main/logo.jpg"
+    response = requests.get(image_url)
+    image = Image.open(BytesIO(response.content))
     st.image(image, use_column_width=True)
 
 # Display the "Enter Features" title and text input elements in the right column
