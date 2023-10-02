@@ -157,7 +157,7 @@ col1, col2 = st.columns([1, 1])
 # Display the image in the left column
 with col1:
     # Open the image using PIL
-    image = Image.open("C:/Users/evliy/OneDrive/Desktop/Internship/logo.jpg")
+    image = Image.open("Internship_DataScience/logo.jpg")
     # Display the image using Streamlit
     st.image(image, width=320)  
 
