@@ -222,8 +222,10 @@ st.subheader("Upload Excel File for Batch Predictions")
 uploaded_file = st.file_uploader("Upload Excel File (with 5 features)", type=["xlsx", "xls"])
 
 if uploaded_file is not None:
-    user_data = pd.read_excel(uploaded_file)
+    user_data = pd.read_excel(uploaded_file, engine='openpyxl')  # Specify the engine
+
     expected_columns = ['Total Account Count', 'Total Product Count', 'Total Income', 'Total Profit', 'Active Days']
+
     if set(expected_columns).issubset(user_data.columns):
         if (user_data['Total Account Count'].astype(float) <= 0).any() or (user_data['Active Days'].astype(float) <= 0).any():
             st.error("Total Account and Active days must be greater than 0 in the uploaded file.")
@@ -233,15 +235,16 @@ if uploaded_file is not None:
             result_df = pd.concat([user_data, predictions_df], axis=1)
             st.subheader("Predictions")
             st.write(result_df)
+
             def get_table_download_link(df):
                 output = BytesIO()
-                with pd.ExcelWriter(output) as writer:
+                with pd.ExcelWriter(output, engine='openpyxl') as writer:  # Specify the engine
                     df.to_excel(writer, index=False, sheet_name='Sheet1')
                 excel_data = output.getvalue()
                 b64 = base64.b64encode(excel_data).decode()
                 href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="churn_predictions.xlsx">Download Predictions as Excel</a>'
                 return href
-            
+
             # Display the download link
             st.markdown(get_table_download_link(result_df), unsafe_allow_html=True)
     else:
