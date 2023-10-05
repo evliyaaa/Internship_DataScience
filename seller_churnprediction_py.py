@@ -222,7 +222,7 @@ uploaded_file = st.file_uploader("Upload Excel File (with 5 features)", type=["x
 
 if uploaded_file is not None:
     #user_data = pd.read_excel(uploaded_file)
-    user_data = pd.read_excel(uploaded_file, sheet_name='Sheet1', encoding='utf-8')
+    user_data = pd.read_excel(uploaded_file, encoding='utf-8')
 
     expected_columns = ['Total Account Count', 'Total Product Count', 'Total Income', 'Total Profit', 'Active Days']
     
