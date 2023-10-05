@@ -143,7 +143,7 @@ import shap
 import streamlit_shap
 from streamlit_shap import st_shap
 from io import BytesIO
-import openpyxl
+import base64
 # Load your trained model
 #model = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=5,
                                    #min_samples_leaf=7, min_samples_split=2, random_state=42)
@@ -244,13 +244,19 @@ if uploaded_file is not None:
             # Provide a download link for the predictions as an Excel file
             st.subheader("Predictions")
             st.write(result_df)
-            st.write("Download Predictions as Excel:")
-            st.button("Download Predictions", on_click=download_predictions, args=(result_df,))
+            
+            # Create a function to encode the DataFrame to Excel and provide a link to download
+            def get_table_download_link(df):
+                # Create a buffer for the Excel data
+                output = BytesIO()
+                with pd.ExcelWriter(output) as writer:
+                    df.to_excel(writer, index=False, sheet_name='Sheet1')
+                excel_data = output.getvalue()
+                b64 = base64.b64encode(excel_data).decode()
+                href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="churn_predictions.xlsx">Download Predictions as Excel</a>'
+                return href
+            
+            # Display the download link
+            st.markdown(get_table_download_link(result_df), unsafe_allow_html=True)
     else:
         st.error("Please upload an Excel file with the correct columns: Total Account Count, Total Product Count, Total Income, Total Profit, Active Days")
-
-# Function to download predictions as an Excel file
-def download_predictions(result_df):
-    result_df.to_excel("churn_predictions.xlsx", index=False)
-    st.success("Predictions downloaded as 'churn_predictions.xlsx'")
-
