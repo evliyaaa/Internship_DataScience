@@ -225,7 +225,7 @@ if uploaded_file is not None:
     st.write("Uploaded DataFrame:")
     st.write(user_data)
     # Read the uploaded Excel file into a DataFrame
-    user_data = pd.read_excel(uploaded_file)
+    user_data = pd.read_excel(uploaded_file, engine='xlrd')
 
     # Ensure the DataFrame has the expected columns (Total Income, Total Profit, Active days, Total Account, Total Products)
     expected_columns = ['Total Account Count', 'Total Product Count', 'Total Income', 'Total Profit', 'Active Days']
