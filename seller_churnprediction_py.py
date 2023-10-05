@@ -221,11 +221,11 @@ st.dataframe([selected_row_1, selected_row_2])
 st.subheader("Upload Excel File for Batch Predictions")
 uploaded_file = st.file_uploader("Upload Excel File (with 5 features)", type=["xlsx", "xls"])
 if uploaded_file is not None:
-    user_data = pd.read_excel(uploaded_file)
+    user_data = pd.read_excel(uploaded_file, engine='xlrd')
     st.write("Uploaded DataFrame:")
     st.write(user_data)
     # Read the uploaded Excel file into a DataFrame
-    user_data = pd.read_excel(uploaded_file, engine='xlrd')
+    #user_data = pd.read_excel(uploaded_file, engine='xlrd')
 
     # Ensure the DataFrame has the expected columns (Total Income, Total Profit, Active days, Total Account, Total Products)
     expected_columns = ['Total Account Count', 'Total Product Count', 'Total Income', 'Total Profit', 'Active Days']
