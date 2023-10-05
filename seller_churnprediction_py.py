@@ -222,7 +222,7 @@ st.subheader("Upload Excel File for Batch Predictions")
 uploaded_file = st.file_uploader("Upload Excel File (with 5 features)", type=["xlsx", "xls"])
 
 if uploaded_file is not None:
-    user_data = pd.read_excel(uploaded_file, engine='openpyxl')  # Specify the engine
+    user_data = pd.read_excel(uploaded_file)
 
     expected_columns = ['Total Account Count', 'Total Product Count', 'Total Income', 'Total Profit', 'Active Days']
     
