@@ -220,7 +220,6 @@ st.dataframe([selected_row_1, selected_row_2])
 # Add a section to allow users to upload an Excel file
 st.subheader("Upload Excel File for Batch Predictions")
 uploaded_file = st.file_uploader("Upload Excel File (with 5 features)", type=["xlsx", "xls"])
-
 if uploaded_file is not None:
     # Read the uploaded Excel file into a DataFrame
     user_data = pd.read_excel(uploaded_file)
