@@ -137,6 +137,7 @@ eval_metric(model, X_train, y_train, X_test, y_test)
 import streamlit as st
 from sklearn.ensemble import GradientBoostingClassifier
 from PIL import Image
+import pandas as pd
 import shap
 import streamlit_shap
 from streamlit_shap import st_shap
