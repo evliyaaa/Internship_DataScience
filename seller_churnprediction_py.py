@@ -222,32 +222,18 @@ st.subheader("Upload Excel File for Batch Predictions")
 uploaded_file = st.file_uploader("Upload Excel File (with 5 features)", type=["xlsx", "xls"])
 
 if uploaded_file is not None:
-    # Read the uploaded Excel file into a DataFrame
     user_data = pd.read_excel(uploaded_file)
-
-    # Ensure the DataFrame has the expected columns (Total Income, Total Profit, Active days, Total Account, Total Products)
     expected_columns = ['Total Account Count', 'Total Product Count', 'Total Income', 'Total Profit', 'Active Days']
     if set(expected_columns).issubset(user_data.columns):
-        # Validate that 'Total Account' and 'Active days' are greater than 0
         if (user_data['Total Account Count'].astype(float) <= 0).any() or (user_data['Active Days'].astype(float) <= 0).any():
             st.error("Total Account and Active days must be greater than 0 in the uploaded file.")
         else:
-            # Make predictions using your model
             predictions = model.predict(user_data)
-
-            # Create a new DataFrame with predictions
             predictions_df = pd.DataFrame({'Predictions': predictions})
-
-            # Combine the input data and predictions
             result_df = pd.concat([user_data, predictions_df], axis=1)
-
-            # Provide a download link for the predictions as an Excel file
             st.subheader("Predictions")
             st.write(result_df)
-            
-            # Create a function to encode the DataFrame to Excel and provide a link to download
             def get_table_download_link(df):
-                # Create a buffer for the Excel data
                 output = BytesIO()
                 with pd.ExcelWriter(output) as writer:
                     df.to_excel(writer, index=False, sheet_name='Sheet1')
