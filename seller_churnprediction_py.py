@@ -8,7 +8,7 @@ Original file is located at
 """
 import os
 os.environ['OPENPYXL'] = 'xlrd'
-
+import xlrd
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -145,7 +145,6 @@ import streamlit_shap
 from streamlit_shap import st_shap
 from io import BytesIO
 import base64
-import xlrd
 # Load your trained model
 #model = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=5,
                                    #min_samples_leaf=7, min_samples_split=2, random_state=42)
@@ -223,7 +222,7 @@ st.dataframe([selected_row_1, selected_row_2])
 st.subheader("Upload Excel File for Batch Predictions")
 uploaded_file = st.file_uploader("Upload Excel File (with 5 features)", type=["xlsx", "xls"])
 if uploaded_file is not None:
-    user_data = pd.read_excel(uploaded_file, engine='xlrd')
+    user_data = pd.read_excel(uploaded_file)
     st.write("Uploaded DataFrame:")
     st.write(user_data)
     # Read the uploaded Excel file into a DataFrame
