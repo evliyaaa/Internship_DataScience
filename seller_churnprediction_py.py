@@ -225,7 +225,7 @@ if uploaded_file is not None:
     user_data = pd.read_excel(uploaded_file, engine='openpyxl')  # Specify the engine
 
     expected_columns = ['Total Account Count', 'Total Product Count', 'Total Income', 'Total Profit', 'Active Days']
-
+    
     if set(expected_columns).issubset(user_data.columns):
         if (user_data['Total Account Count'].astype(float) <= 0).any() or (user_data['Active Days'].astype(float) <= 0).any():
             st.error("Total Account and Active days must be greater than 0 in the uploaded file.")
